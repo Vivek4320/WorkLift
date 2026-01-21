@@ -7,6 +7,7 @@ import { Search, History, User, Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -23,6 +24,19 @@ const Navbar = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMenuOpen]);
+
+  // Close user dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isUserDropdownOpen && !target.closest('.user-dropdown-container')) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isUserDropdownOpen]);
 
   const navLinkClass =
     'relative text-gray-700 font-medium transition-all duration-300 hover:text-sky-400 ' +
@@ -66,11 +80,11 @@ const Navbar = () => {
 
           {/* Search & Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="relative group">
+            <div className="relative group mr-5">
               <input
                 type="text"
                 placeholder="Search"
-                className="w-64 pl-10 pr-4 py-2 bg-gray-100 rounded-full text-gray-700
+                className="w-70 pl-10 pr-4 py-2 bg-gray-100 rounded-full text-gray-700
                            placeholder-gray-500 transition-all duration-300
                            focus:outline-none focus:ring-2 focus:ring-blue-400
                            focus:bg-white focus:shadow-lg hover:bg-gray-200"
@@ -87,12 +101,35 @@ const Navbar = () => {
             </button>
 
             {/* User */}
-            <button
-              className="p-2 rounded-full transition-all duration-300
-                         hover:bg-blue-50 hover:scale-110 hover:shadow-md"
-            >
-              <User className="w-6 h-6 text-gray-600 transition-colors duration-300 hover:text-blue-400" />
-            </button>
+            <div className="relative user-dropdown-container">
+              <button
+                onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                className="p-2 rounded-full transition-all duration-300
+                           hover:bg-blue-50 hover:scale-110 hover:shadow-md"
+              >
+                <User className="w-6 h-6 text-gray-600 transition-colors duration-300 hover:text-blue-400" />
+              </button>
+
+              {/* User Dropdown */}
+              {isUserDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <Link
+                    href="/login"
+                    className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                    onClick={() => setIsUserDropdownOpen(false)}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                    onClick={() => setIsUserDropdownOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -154,9 +191,34 @@ const Navbar = () => {
                 <button className="p-2 rounded-full hover:bg-blue-50 transition-all duration-300">
                   <History className="w-6 h-6 text-gray-600 hover:text-blue-600" />
                 </button>
-                <button className="p-2 rounded-full hover:bg-blue-50 transition-all duration-300">
-                  <User className="w-6 h-6 text-gray-600 hover:text-blue-600" />
-                </button>
+                <div className="relative user-dropdown-container">
+                  <button
+                    onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                    className="p-2 rounded-full hover:bg-blue-50 transition-all duration-300"
+                  >
+                    <User className="w-6 h-6 text-gray-600 hover:text-blue-600" />
+                  </button>
+
+                  {/* Mobile User Dropdown */}
+                  {isUserDropdownOpen && (
+                    <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                      <Link
+                        href="/login"
+                        className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                        onClick={() => { setIsUserDropdownOpen(false); toggleMenu(); }}
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        href="/signup"
+                        className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                        onClick={() => { setIsUserDropdownOpen(false); toggleMenu(); }}
+                      >
+                        Sign Up
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
