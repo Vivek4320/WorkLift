@@ -51,7 +51,7 @@ export default function Loader({ onLoadingComplete }: LoaderProps) {
                     <img
                         src="/main-logo.png"
                         alt="WorkLift Logo"
-                        className="w-30 h-30 object-contain"
+                        className="w-30 h-20 object-contain"
                     />
                     <h1 className="text-3xl font-bold text-gray-700 tracking-wide -mt-4">
                         Work<span className="text-sky-400">Lift</span>
@@ -59,7 +59,7 @@ export default function Loader({ onLoadingComplete }: LoaderProps) {
                 </div>
 
                 {/* Progress line loading */}
-                <div className="w-48 h-1 bg-gray-200 rounded-full overflow-hidden mt-8">
+                <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden mt-5">
                     <div
                         className="h-full bg-gradient-to-r from-sky-500 to-sky-600 rounded-full transition-all duration-200 ease-out"
                         style={{ width: `${progress}%` }}
