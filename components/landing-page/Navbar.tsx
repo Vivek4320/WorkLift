@@ -8,8 +8,28 @@ import { Search, History, User, Menu, X } from 'lucide-react';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const suggestions = [
+    { id: 1, title: 'Electrician', icon: '⚡' },
+    { id: 2, title: 'Plumber', icon: '💧' },
+    { id: 3, title: 'AC Repair', icon: '❄️' },
+    { id: 4, title: 'Painter', icon: '🎨' },
+    { id: 5, title: 'Cleaner', icon: '🧹' },
+    { id: 6, title: 'Carpenter', icon: '🔨' },
+  ];
+
+  const filteredSuggestions = suggestions.filter(suggestion =>
+    suggestion.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleSearchSelect = (suggestion: string) => {
+    setSearchQuery(suggestion);
+    setShowSuggestions(false);
+  };
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -84,12 +104,38 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowSuggestions(e.target.value.length > 0);
+                }}
+                onFocus={() => setShowSuggestions(searchQuery.length > 0)}
                 className="w-70 pl-10 pr-4 py-2 bg-gray-100 rounded-full text-gray-700
                            placeholder-gray-500 transition-all duration-300
                            focus:outline-none focus:ring-2 focus:ring-blue-400
                            focus:bg-white focus:shadow-lg hover:bg-gray-200"
               />
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-400" />
+
+              {/* Desktop Suggestions Dropdown */}
+              {showSuggestions && filteredSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 w-80 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  {filteredSuggestions.map((suggestion) => (
+                    <button
+                      key={suggestion.id}
+                      onClick={() => handleSearchSelect(suggestion.title)}
+                      className="w-full px-4 py-3 flex items-center gap-3 text-left text-gray-700 hover:bg-blue-50 transition-colors duration-200 border-b last:border-b-0"
+                    >
+                      <span className="text-xl">{suggestion.icon}</span>
+                      <div className="flex-1">
+                        <p className="font-medium text-gray-800">{suggestion.title}</p>
+                        <p className="text-xs text-gray-500">Browse {suggestion.title.toLowerCase()} services</p>
+                      </div>
+                      <Search className="w-4 h-4 text-gray-400" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* History */}
@@ -149,13 +195,41 @@ const Navbar = () => {
 
         {/* Mobile Search */}
         <div className="md:hidden relative -top-3">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-full text-gray-700
-                             focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          <Search className="absolute left-3 mt-[-20] -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowSuggestions(e.target.value.length > 0);
+              }}
+              onFocus={() => setShowSuggestions(searchQuery.length > 0)}
+              className="w-full pl-10 pr-4 py-2 bg-gray-100 rounded-full text-gray-700
+                               focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+
+            {/* Mobile Suggestions Dropdown */}
+            {showSuggestions && filteredSuggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                {filteredSuggestions.map((suggestion) => (
+                  <button
+                    key={suggestion.id}
+                    onClick={() => handleSearchSelect(suggestion.title)}
+                    className="w-full px-4 py-3 flex items-center gap-3 text-left text-gray-700 hover:bg-blue-50 transition-colors duration-200 border-b last:border-b-0"
+                  >
+                    <span className="text-xl">{suggestion.icon}</span>
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-800">{suggestion.title}</p>
+                      <p className="text-xs text-gray-500">Browse {suggestion.title.toLowerCase()} services</p>
+                    </div>
+                    <Search className="w-4 h-4 text-gray-400" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Backdrop Blur Overlay */}
