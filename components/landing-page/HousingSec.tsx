@@ -4,7 +4,7 @@ export default function Housing() {
     return (
         <section className="w-full bg-white py-16">
             <div className="mx-auto max-w-7xl px-4 flex flex-col items-center">
-                <span className="text-6xl font-bold mb-8 text-gray-800">For Housing And Societe</span>
+                <span className="text-6xl font-bold mb-8 text-gray-800">For Housing And Societies</span>
                 <div className="mb-10 w-40 h-1 bg-gradient-to-r from-sky-500 to-sky-500 rounded-full" />
             </div>
 

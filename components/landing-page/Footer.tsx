@@ -84,7 +84,7 @@ const Footer = () => {
                             {services.map((service) => (
                                 <li key={service}>
                                     <a
-                                        href="#"
+                                        href="/service"
                                         className="text-gray-600 hover:text-sky-400 text-sm transition-colors duration-200 flex items-center group"
                                     >
                                         <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-sky-400">→</span>
@@ -100,15 +100,15 @@ const Footer = () => {
                         <h3 className="text-gray-800 font-semibold text-lg mb-4">Contact Us</h3>
                         <ul className="space-y-3 mb-6">
                             <li className="flex items-start space-x-3 text-gray-600 text-sm">
-                                <Phone className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                                <Phone className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />
                                 <span>+91 123 456 7890</span>
                             </li>
                             <li className="flex items-start space-x-3 text-gray-600 text-sm">
-                                <Mail className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                                <Mail className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />
                                 <span>support@worklift.com</span>
                             </li>
                             <li className="flex items-start space-x-3 text-gray-600 text-sm">
-                                <MapPin className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                                <MapPin className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />
                                 <span>Mumbai, Maharashtra, India</span>
                             </li>
                         </ul>

@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Loader from '../components/Loader';
-import HeroSwiper from '../components/HeroSwiper';
-// import ServiceFlow from '../components/ServiceFlow';
-import RecentsOffers from '../components/RecentsOffers';
-import Housing from '../components/HousingSec';
-import Footer from '../components/Footer';
+import Navbar from '../components/landing-page/Navbar';
+import Loader from '../components/landing-page/Loader';
+import HeroSwiper from '../components/landing-page/HeroSwiper';
+import RecentsOffers from '../components/landing-page/RecentsOffers';
+import Housing from '../components/landing-page/HousingSec';
+import Footer from '../components/landing-page/Footer';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +18,6 @@ export default function Home() {
         <div className="min-h-screen bg-gray-50 animate-fade-in">
           <Navbar />
           <HeroSwiper />
-          {/* <ServiceFlow /> */}
           <RecentsOffers />
           <Housing />
           <Footer />
