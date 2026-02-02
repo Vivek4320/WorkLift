@@ -67,10 +67,9 @@ const Footer = () => {
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-gray-600 hover:text-sky-400 text-sm transition-colors duration-200 flex items-center group"
+                                        className="text-gray-600 hover:text-sky-400 text-sm transition-colors duration-200 flex items-center"
                                     >
-                                        <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-sky-400">→</span>
-                                        <span>{link.name}</span>
+                                        <span className="ml-2 underline-left">{link.name}</span> 
                                     </Link>
                                 </li>
                             ))}
@@ -85,10 +84,9 @@ const Footer = () => {
                                 <li key={service}>
                                     <a
                                         href="/service"
-                                        className="text-gray-600 hover:text-sky-400 text-sm transition-colors duration-200 flex items-center group"
+                                        className="text-gray-600 hover:text-sky-400 text-sm transition-colors duration-200 flex items-center"
                                     >
-                                        <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-sky-400">→</span>
-                                        <span>{service}</span>
+                                        <span className='underline-left'>{service}</span>
                                     </a>
                                 </li>
                             ))}
@@ -101,7 +99,7 @@ const Footer = () => {
                         <ul className="space-y-3 mb-6">
                             <li className="flex items-start space-x-3 text-gray-600 text-sm">
                                 <Phone className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />
-                                <span>+91 123 456 7890</span>
+                                <span>+91 9662955278</span>
                             </li>
                             <li className="flex items-start space-x-3 text-gray-600 text-sm">
                                 <Mail className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />

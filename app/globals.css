@@ -25,6 +25,13 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+/* Add padding on mobile for bottom navigation */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 64px; /* Height of bottom nav bar */
+  }
+}
+
 /* Custom Loader Animations */
 @keyframes spin-slow {
   from {
@@ -46,6 +53,38 @@ body {
   50% {
     transform: scale(1.05);
   }
+}
+
+@keyframes underline-left {
+  from {
+    width: 0;
+    left: 0;
+  }
+
+  to {
+    width: 100%;
+    left: 0;
+  }
+}
+
+.underline-left {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-left::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: rgb(56, 189, 248);
+  transition: width 0.3s ease;
+}
+
+.underline-left:hover::after {
+  width: 100%;
 }
 
 @keyframes fade-in {

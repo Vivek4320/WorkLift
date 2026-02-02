@@ -6,13 +6,23 @@ interface LoaderProps {
     onLoadingComplete?: () => void;
 }
 
+let hasLoaderBeenShown = false;
+
 export default function Loader({ onLoadingComplete }: LoaderProps) {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        const duration = 2500;
+        if (hasLoaderBeenShown) {
+            setIsLoading(false);
+            onLoadingComplete?.();
+            return;
+        }
+
+        setIsLoading(true);
+
+        const duration = 1500;
         const incrementInterval = 20;
         const totalIncrements = duration / incrementInterval;
         const incrementAmount = 100 / totalIncrements;
@@ -26,6 +36,7 @@ export default function Loader({ onLoadingComplete }: LoaderProps) {
                         setFadeOut(true);
                         setTimeout(() => {
                             setIsLoading(false);
+                            hasLoaderBeenShown = true;
                             onLoadingComplete?.();
                         }, 500);
                     }, 200);
